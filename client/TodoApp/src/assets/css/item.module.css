@@ -1,0 +1,37 @@
+.item{
+    list-style-type: none;
+    /* border: 1px solid gold; */
+    text-align: left;
+    width: 70%;
+    
+}
+
+.item_name{
+   
+   width: 60%;
+   padding: 10px;
+   display: inline-block;
+   font-size: 22px;
+   font-family: 'Times New Roman', Times, serif;
+   color: chocolate;
+}
+
+.item_date{
+
+   padding: 10px;
+   display: inline-block;
+   font-size: 22px;
+   font-family: 'Times New Roman', Times, serif;
+   color: chocolate;
+
+}
+
+.delete_btn{
+    margin-left: 70px;
+    padding: 3px;
+    display: inline-block;
+    cursor: pointer;
+    background-color: rgb(207, 80, 80);
+    border-radius: 3px;
+    color: azure;
+}

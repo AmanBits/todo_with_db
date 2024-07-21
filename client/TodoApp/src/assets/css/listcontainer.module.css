@@ -1,0 +1,9 @@
+.listcontainer{
+    /* border: 2px solid grey; */
+    border-top:2px solid black;
+    border-radius: 6px;
+    width: 70%;
+    margin-top:40px;
+    max-height: 410px;
+    overflow:scroll;
+}

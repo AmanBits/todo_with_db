@@ -6,16 +6,18 @@ import ListContainer from "./components/ListContainer";
 import ListItems from "./components/ListItems";
 import { fetchList, addItemPost, deleteOneItem } from "./services/item_api";
 import Pagination from "./components/Pagination";
+import SearchBox from "./components/SearchBox";
 
 const App = () => {
   const [items, setItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [search, setSearch] = useState("");
   const limit = 5;
 
-  const getData = async (page, limit) => {
+  const getData = async (page, limit, search) => {
     try {
-      const data = await fetchList(page, limit);
+      const data = await fetchList(page, limit, search);
       setItems(data.data);
       setCurrentPage(data.currentPage);
       setTotalPages(data.totalPages);
@@ -25,8 +27,8 @@ const App = () => {
   };
 
   useEffect(() => {
-    getData(currentPage, limit);
-  }, [currentPage]);
+    getData(currentPage, limit, search);
+  }, [currentPage, search]);
 
   const addItem = async (name, date) => {
     const data = { name, date };
@@ -62,10 +64,17 @@ const App = () => {
     }
   };
 
+  const onChangeHandle = (event) => {
+    const val = event.target.value;
+    setSearch(val);
+    setCurrentPage(1);
+  };
+
   return (
     <TodoContainer>
       <AppTitle />
       <AddTodo addItem={addItem} />
+      <SearchBox onChangeHandle={onChangeHandle} />
       <ListContainer>
         <ListItems items={items} deleteItem={deleteItem}></ListItems>
       </ListContainer>

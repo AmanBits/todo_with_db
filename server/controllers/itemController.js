@@ -14,8 +14,12 @@ const addItem = async (req, res) => {
 };
 
 const itemList = async (req,res)=>{
-    const items = await Item.findAll();
-    res.status(200).json(items);
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 5;
+    const offset = (page-1) *limit;
+    const {count,rows} = await Item.findAndCountAll({limit,offset});
+    const totalPages = Math.ceil(count/limit);
+    res.status(200).json({data:rows,currentPage:page,totalPages});
 }
 
 const deleteItem = async(req,res)=>{

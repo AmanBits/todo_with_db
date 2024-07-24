@@ -2,9 +2,9 @@ import axios from "axios";
 
 const API_URL = "http://localhost:8080/api/items";
 
-export const fetchList = async () => {
+export const fetchList = async (page,limit) => {
   try {
-    const response = await axios.get(`${API_URL}/itemList`);
+    const response = await axios.get(`${API_URL}/itemList?page=${page}&limit=${limit}`);
     return response.data;
   } catch (error) {
     console.log("List fetching error " + error);

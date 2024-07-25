@@ -4,7 +4,7 @@ pipeline {
         stage('Checkout') {
     steps {
         checkout([$class: 'GitSCM',
-                  branches: [[name: '*/master']], // Specify your branch here
+                  branches: [[name: '*/main']], // Specify your branch here
                   userRemoteConfigs: [[url: 'https://github.com/AmanBits/todo_with_db.git']]
         ])
     }

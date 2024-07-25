@@ -2,10 +2,13 @@ pipeline {
     agent any
     stages {
         stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
+    steps {
+        checkout([$class: 'GitSCM',
+                  branches: [[name: '*/master']], // Specify your branch here
+                  userRemoteConfigs: [[url: 'https://github.com/AmanBits/todo_with_db.git']]
+        ])
+    }
+}
         stage('Install Dependencies') {
             steps {
                 script {

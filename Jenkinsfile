@@ -2,51 +2,24 @@ pipeline {
     agent any
     stages {
         stage('Checkout') {
-    steps {
-        checkout([$class: 'GitSCM',
-                  branches: [[name: '*/master']], // Specify your branch here
-                  userRemoteConfigs: [[url: 'https://github.com/AmanBits/todo_with_db.git']]
-        ])
-    }
-}
+            steps {
+                git 'https://github.com/your-repo/nodejs-app.git'
+            }
+        }
         stage('Install Dependencies') {
             steps {
-                script {
-                    // Install NodeJS if needed
-                    def nodeVersion = '14' // Specify the Node.js version if needed
-                    sh "nvm install ${nodeVersion}"
-                    sh "npm install"
-                }
+                sh 'npm install'
             }
         }
-        stage('Build React App') {
+        stage('Build') {
             steps {
-                script {
-                    sh "cd client/TodoApp && npm run build"
-                }
+                sh 'npm run build'
             }
         }
-        stage('Deploy Node.js App') {
+        stage('Deploy') {
             steps {
-                script {
-                    sh "cd server && npm install"
-                    sh "pm2 restart server" // or any deployment command you use
-                }
+                // Add your deployment steps here
             }
-        }
-        stage('Deploy React App') {
-            steps {
-                script {
-                    // Example: Copy build to a web server directory
-                    sh "aws s3 sync client/TodoApp/build s3://your-bucket-name --delete"
-                }
-            }
-        }
-    }
-    post {
-        always {
-            archiveArtifacts artifacts: '**/target/*.jar', allowEmptyArchive: true
-            junit '**/target/test-*.xml'
         }
     }
 }
